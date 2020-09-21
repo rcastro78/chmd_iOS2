@@ -288,6 +288,11 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
             setNavigationBar()
             self.btnAnterior.isHidden=true
             self.btnSiguiente.isHidden=true
+            //Restar uno del badge
+             UIApplication.shared.applicationIconBadgeNumber = UIApplication.shared.applicationIconBadgeNumber - 1
+            //Leerla para ir reduciendo el badge
+             let idCircularViaNotif = UserDefaults.standard.integer(forKey: "idCircularViaNotif")
+             self.leerCircular(direccion: self.urlBase+self.leerMetodo, usuario_id: self.idUsuario, circular_id: "\(idCircularViaNotif)")
             
         }else{
             self.btnAnterior.isEnabled=true
