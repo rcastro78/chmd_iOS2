@@ -14,8 +14,8 @@
             filePath = "CHMD2/Circulares/CircularDetalleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1732"
-            endingLineNumber = "1732"
+            startingLineNumber = "1740"
+            endingLineNumber = "1740"
             landmarkName = "btnFavoritoClick(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "CHMD2/Circulares/CircularDetalleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1733"
-            endingLineNumber = "1733"
+            startingLineNumber = "1741"
+            endingLineNumber = "1741"
             landmarkName = "btnFavoritoClick(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "CHMD2/Circulares/CircularDetalleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1734"
-            endingLineNumber = "1734"
+            startingLineNumber = "1742"
+            endingLineNumber = "1742"
             landmarkName = "btnFavoritoClick(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "CHMD2/Circulares/CircularDetalleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1746"
-            endingLineNumber = "1746"
+            startingLineNumber = "1754"
+            endingLineNumber = "1754"
             landmarkName = "btnFavoritoClick(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "CHMD2/Circulares/CircularDetalleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1743"
-            endingLineNumber = "1743"
+            startingLineNumber = "1751"
+            endingLineNumber = "1751"
             landmarkName = "btnFavoritoClick(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,8 +94,8 @@
             filePath = "CHMD2/Circulares/CircularDetalleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1744"
-            endingLineNumber = "1744"
+            startingLineNumber = "1752"
+            endingLineNumber = "1752"
             landmarkName = "btnFavoritoClick(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -110,8 +110,8 @@
             filePath = "CHMD2/Circulares/CircularDetalleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1817"
-            endingLineNumber = "1817"
+            startingLineNumber = "1825"
+            endingLineNumber = "1825"
             landmarkName = "actualizaFavoritosCirculares(idCircular:idUsuario:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -126,8 +126,8 @@
             filePath = "CHMD2/Circulares/CircularDetalleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1819"
-            endingLineNumber = "1819"
+            startingLineNumber = "1827"
+            endingLineNumber = "1827"
             landmarkName = "actualizaFavoritosCirculares(idCircular:idUsuario:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -142,8 +142,8 @@
             filePath = "CHMD2/Circulares/CircularDetalleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1820"
-            endingLineNumber = "1820"
+            startingLineNumber = "1828"
+            endingLineNumber = "1828"
             landmarkName = "actualizaFavoritosCirculares(idCircular:idUsuario:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -158,8 +158,8 @@
             filePath = "CHMD2/Circulares/CircularDetalleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1822"
-            endingLineNumber = "1822"
+            startingLineNumber = "1830"
+            endingLineNumber = "1830"
             landmarkName = "actualizaFavoritosCirculares(idCircular:idUsuario:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -174,8 +174,8 @@
             filePath = "CHMD2/Circulares/CircularDetalleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1823"
-            endingLineNumber = "1823"
+            startingLineNumber = "1831"
+            endingLineNumber = "1831"
             landmarkName = "actualizaFavoritosCirculares(idCircular:idUsuario:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -190,8 +190,8 @@
             filePath = "CHMD2/Circulares/CircularDetalleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1824"
-            endingLineNumber = "1824"
+            startingLineNumber = "1832"
+            endingLineNumber = "1832"
             landmarkName = "actualizaFavoritosCirculares(idCircular:idUsuario:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,8 +206,8 @@
             filePath = "CHMD2/Circulares/CircularDetalleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1826"
-            endingLineNumber = "1826"
+            startingLineNumber = "1834"
+            endingLineNumber = "1834"
             landmarkName = "actualizaFavoritosCirculares(idCircular:idUsuario:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -222,8 +222,8 @@
             filePath = "CHMD2/Circulares/CircularDetalleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1825"
-            endingLineNumber = "1825"
+            startingLineNumber = "1833"
+            endingLineNumber = "1833"
             landmarkName = "actualizaFavoritosCirculares(idCircular:idUsuario:)"
             landmarkType = "7">
          </BreakpointContent>

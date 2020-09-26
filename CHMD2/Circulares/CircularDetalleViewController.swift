@@ -210,6 +210,7 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
     
     @IBOutlet weak var webView: WKWebView!
     
+    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var btnFavorita: UIButton!
     @IBOutlet weak var btnAnterior: UIButton!
     @IBOutlet weak var btnSiguiente: UIButton!
@@ -261,22 +262,29 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
     var circFav:Int=0
     
     @objc func done() { // remove @objc for Swift 3
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        
+        
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+                self.present(newViewController, animated: true, completion: nil)
+        
+        /*DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
            UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
              exit(0)
             }
-       }
+       }*/
     }
     
     func setNavigationBar() {
         let screenSize: CGRect = UIScreen.main.bounds
         let navBar = UINavigationBar(frame: CGRect(x: 0, y: 20, width: screenSize.width, height: 80))
         let navItem = UINavigationItem(title: "Aviso del CHMD")
-        let doneItem = UIBarButtonItem(title: "Cerrar", style: .done, target: self, action: #selector(done))
+        let doneItem = UIBarButtonItem(title: "Salir", style: .done, target: self, action: #selector(done))
         navItem.rightBarButtonItem = doneItem
         navBar.setItems([navItem], animated: false)
         self.view.addSubview(navBar)
+        stackView.isHidden=true
     }
     
     
@@ -374,10 +382,10 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
             //partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:titulo)
             
         }else{
+          
             id = UserDefaults.standard.string(forKey: "idCircularViaNotif") ?? ""
             idInicial = Int(UserDefaults.standard.string(forKey: "idCircularViaNotif") ?? "0")!
             obtenerCircular(uri: urlBase+"getCircularId4.php?id="+id)
-           
         }
         
         
