@@ -5,7 +5,6 @@
 //  Created by Rafael David Castro Luna on 7/6/19.
 //  Copyright © 2019 Rafael David Castro Luna. All rights reserved.
 //
-
 import UIKit
 import GoogleSignIn
 import Firebase
@@ -58,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate,GIDSignI
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        
+                UNUserNotificationCenter.current().delegate = self
          var statement:OpaquePointer?
         let sqlRecuento1 = "select count(*) from appNotificacion"
           if sqlite3_prepare(self.db, sqlRecuento1, -1, &statement, nil) == SQLITE_OK{
@@ -189,7 +188,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate,GIDSignI
        //Setear el badge si la app está abierta
     UIApplication.shared.applicationIconBadgeNumber = (b ?? 1)
             
-        
+        
         let state = application.applicationState
     
         switch state {
@@ -215,8 +214,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate,GIDSignI
         
     }
     
+    //Mostrar notificación en el foreground (app abierta)
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                   willPresent notification: UNNotification,
+                                   withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+           let userInfo = notification.request.content.userInfo
+          let aps = userInfo[AnyHashable("aps")] as? NSDictionary
+                     let alert = aps?["alert"] as? NSDictionary
+                     let body = alert![AnyHashable("body")] as? String
+                     let title = alert!["title"] as? String
+                     let b = aps![AnyHashable("badge")] as? Int
+        
+        //Establecer el badge aunque la app esté abierta
+        UIApplication.shared.applicationIconBadgeNumber = (b ?? 1)
+        
+           print(userInfo)
+        completionHandler([.alert,.sound])
+       }
+    
+    //Mostrar notificación en el background
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-            print("Se dio click a la notificacion")
+            
             let request = response.notification.request
             let userInfo = request.content.userInfo
             //Con esto capturamos los valores enviados en la notificacion
@@ -279,7 +297,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate,GIDSignI
             let familyName = user.profile.familyName
             let email = user.profile.email
            
-            let picURL = user.profile.imageURL(withDimension: 120) 
+            let picURL = user.profile.imageURL(withDimension: 120)
             
             UserDefaults.standard.set(userId,forKey:"userId")
             UserDefaults.standard.set(idToken,forKey:"idToken")
