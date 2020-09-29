@@ -107,7 +107,7 @@ class NotificacionTableViewController: UIViewController,UITableViewDelegate, UIT
             
         }
       
-        @objc func refresh(_ sender: AnyObject) {
+        /*@objc func refresh(_ sender: AnyObject) {
           circulares.removeAll()
             print("se ha refrescado...")
           if ConexionRed.isConnectedToNetwork() == true {
@@ -115,7 +115,21 @@ class NotificacionTableViewController: UIViewController,UITableViewDelegate, UIT
               guard let _url = URL(string: address) else { return };
               self.getDataFromURL(url: _url)
           }
-        }
+        }*/
+    
+    
+    @objc func refresh(_ sender: AnyObject) {
+      circulares.removeAll()
+        print("se ha refrescado...")
+      if ConexionRed.isConnectedToNetwork() == true {
+         let address=self.urlBase+self.metodoNotificaciones+"?usuario_id=\(self.idUsuario)"
+          guard let _url = URL(string: address) else { return };
+          self.getDataFromURL(url: _url)
+        //Actualizar las notificaciones
+       
+       }
+    }
+    
 
        
         
@@ -893,7 +907,7 @@ class NotificacionTableViewController: UIViewController,UITableViewDelegate, UIT
         
         
         
-        func getDataFromURL(url: URL) {
+        /*func getDataFromURL(url: URL) {
             print("Leer desde el servidor....")
             print(url)
             circulares.removeAll()
@@ -1039,7 +1053,161 @@ class NotificacionTableViewController: UIViewController,UITableViewDelegate, UIT
             
             UserDefaults.standard.set(0, forKey: "descarga")
             
+        }*/
+    
+    
+    
+    func getDataFromURL(url: URL) {
+        print("Leer desde el servidor....")
+        print(url)
+        circulares.removeAll()
+        
+        self.delete()
+               
+        URLSession.shared.dataTask(with: url) {
+            (data, response, error) in
+            print(data)
+            
+            if let datos = try? JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [[String:Any]] {
+                print(datos.count)
+                if(datos.count>0) {
+                    
+                
+                for index in 0...((datos).count) - 1
+                {
+                    let obj = datos[index] as! [String : AnyObject]
+                    guard let id = obj["id"] as? String else {
+                        print("No se pudo obtener el id")
+                        return
+                    }
+                    guard let titulo = obj["titulo"] as? String else {
+                        print("No se pudo obtener el titulo")
+                        return
+                    }
+                    
+                    var imagen:UIImage
+                       imagen = UIImage.init(named: "appmenu05")!
+                       
+                       
+                       guard let leido = obj["leido"] as? String else {
+                           return
+                       }
+                       
+                       guard let fecha = obj["created_at"] as? String else {
+                                                  return
+                                              }
+                       
+                       guard let favorito = obj["favorito"] as? String else {
+                           return
+                       }
+                       
+                       guard let adjunto = obj["adjunto"] as? String else {
+                                                  return
+                                              }
+                       
+                       guard let eliminada = obj["eliminado"] as? String else {
+                           return
+                       }
+                       
+                       guard let texto = obj["contenido"] as? String else {
+                           return
+                       }
+                       
+                       guard let fechaIcs = obj["fecha_ics"] as? String else {
+                         return
+                       }
+                       guard let horaInicioIcs = obj["hora_inicial_ics"] as? String else {
+                                                return
+                                              }
+                       
+                      
+                       guard let horaFinIcs = obj["hora_final_ics"] as? String else {
+                                                                       return
+                                                                     }
+                       
+                    
+                       //Con esto se evita la excepcion por los valores nulos
+                       var nv:String?
+                       if (obj["nivel"] == nil){
+                           nv=""
+                       }else{
+                           nv=obj["nivel"] as? String
+                       }
+
+                       
+                    var noLeido:Int=0
+                       
+                       //leídas
+                       if(Int(leido)!>0){
+                           imagen = UIImage.init(named: "circle_white")!
+                       }
+                       //No leídas
+                       if(Int(leido)==0 && Int(favorito)==0){
+                           imagen = UIImage.init(named: "circle")!
+                        noLeido=1
+                       }
+                       
+                       var noLeida:Int = 0
+                       if(Int(leido)! == 0){
+                           noLeida = 1
+                       }
+                       
+                       var adj=0;
+                       if(Int(adjunto)!==1){
+                           adj=1
+                       }
+                      
+                       if(Int(favorito)!>0){
+                           imagen = UIImage.init(named: "circle_white")!
+                        //imagen = nil
+                       }
+                       
+                       var str = texto.replacingOccurrences(of: "&lt;", with: "<").replacingOccurrences(of: "&gt;", with: ">")
+                       .replacingOccurrences(of: "&amp;aacute;", with: "á")
+                       .replacingOccurrences(of: "&amp;eacute;", with: "é")
+                       .replacingOccurrences(of: "&amp;iacute;", with: "í")
+                       .replacingOccurrences(of: "&amp;oacute;", with: "ó")
+                       .replacingOccurrences(of: "&amp;uacute;", with: "ú")
+                       .replacingOccurrences(of: "&amp;ordm;", with: "o.")
+                       print("Contenido: "+str)
+                    
+                    
+                    
+                    
+                    
+                       if(Int(eliminada)!==0){
+                        self.circulares.append(CircularTodas(id:Int(id)!,imagen: imagen,encabezado: "",nombre: titulo,fecha: fecha,estado: 0,contenido:"",adjunto:adj,fechaIcs: fechaIcs,horaInicialIcs: horaInicioIcs,horaFinalIcs: horaFinIcs, nivel:nv ?? "",noLeido:noLeida,favorita:Int(favorito)!))
+                       }
+                    
+                   
+                    print("hora _ics: \(horaInicioIcs)")
+                    print("fecha _ics: \(fechaIcs)")
+                     
+                   }
+                    
+                }
+                OperationQueue.main.addOperation {
+                    
+                    self.tableViewCirculares.reloadData();
+                }
+            }else{
+                print(error.debugDescription)
+                print(error?.localizedDescription)
+            }
+            
+            
+            }.resume()
+        
+        
+        if self.refreshControl.isRefreshing {
+          self.refreshControl.endRefreshing()
         }
+        
+        
+        UserDefaults.standard.set(0, forKey: "descarga")
+        
+    }
+    
         
         func setupLongPressGesture() {
             let longPressGesture:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress))
