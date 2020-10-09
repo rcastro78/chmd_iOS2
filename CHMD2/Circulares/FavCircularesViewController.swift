@@ -614,6 +614,11 @@ func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath])
             UserDefaults.standard.set(0, forKey: "viaNotif")
             UserDefaults.standard.set(2, forKey: "tipoCircular")
             UserDefaults.standard.set(c.noLeido, forKey: "noLeido")
+                if (c.noLeido == 1){
+                    self.leerCircular(direccion: self.urlBase+self.leerMetodo, usuario_id: self.idUsuario, circular_id: "\(c.id)")
+                }
+                
+                
             performSegue(withIdentifier: "circularFavoritaSegue", sender:self)
             }
          }else{

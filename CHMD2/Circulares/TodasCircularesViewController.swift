@@ -667,7 +667,9 @@ func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath])
             UserDefaults.standard.set(1, forKey: "tipoCircular")
             UserDefaults.standard.set(c.favorita, forKey: "circFav")
             self.actualizaLeidosCirculares(idCircular: c.id, idUsuario: Int(self.idUsuario)!)
-                                                           
+            if (c.noLeido == 1){
+                self.leerCircular(direccion: self.urlBase+self.leerMetodo, usuario_id: self.idUsuario, circular_id: "\(c.id)")
+            }
             
             
             performSegue(withIdentifier: "TcircularSegue", sender:self)

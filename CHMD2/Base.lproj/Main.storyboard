@@ -1046,7 +1046,7 @@
                                 </constraints>
                             </stackView>
                             <textView clipsSubviews="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="QEL-Y4-hLX">
-                                <rect key="frame" x="16" y="143" width="343" height="635"/>
+                                <rect key="frame" x="0.0" y="143" width="375" height="635"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="635" id="HJE-Er-62H"/>
@@ -1065,11 +1065,11 @@
                             <constraint firstItem="SIp-IZ-B7o" firstAttribute="leading" secondItem="wZn-RL-l1S" secondAttribute="leadingMargin" constant="-35" id="So7-1C-wdw"/>
                             <constraint firstItem="ecW-Ow-juS" firstAttribute="top" secondItem="SIp-IZ-B7o" secondAttribute="bottom" constant="3" id="TNi-Ne-EcM"/>
                             <constraint firstItem="ecW-Ow-juS" firstAttribute="leading" secondItem="F1g-zB-akU" secondAttribute="leading" constant="16" id="YiE-1J-XDN"/>
-                            <constraint firstItem="QEL-Y4-hLX" firstAttribute="leading" secondItem="ecW-Ow-juS" secondAttribute="leading" id="htF-yu-ppf"/>
+                            <constraint firstItem="QEL-Y4-hLX" firstAttribute="leading" secondItem="ecW-Ow-juS" secondAttribute="leading" constant="-16" id="htF-yu-ppf"/>
                             <constraint firstItem="ecW-Ow-juS" firstAttribute="bottom" secondItem="F1g-zB-akU" secondAttribute="bottom" constant="-15" id="jju-8v-lry"/>
                             <constraint firstItem="QEL-Y4-hLX" firstAttribute="top" secondItem="bBb-Qk-Wag" secondAttribute="top" constant="-5" id="tGx-6Q-tWS"/>
                             <constraint firstItem="SIp-IZ-B7o" firstAttribute="centerX" secondItem="QEL-Y4-hLX" secondAttribute="centerX" id="vKz-ky-bFG"/>
-                            <constraint firstItem="QEL-Y4-hLX" firstAttribute="trailing" secondItem="bBb-Qk-Wag" secondAttribute="trailing" id="zOb-5v-h8C"/>
+                            <constraint firstItem="QEL-Y4-hLX" firstAttribute="trailing" secondItem="bBb-Qk-Wag" secondAttribute="trailing" constant="16" id="zOb-5v-h8C"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="F1g-zB-akU"/>
                     </view>

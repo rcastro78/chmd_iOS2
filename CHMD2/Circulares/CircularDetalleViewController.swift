@@ -3915,7 +3915,43 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
         }
     }
    
-    
+    func actualizaNoLeidosCirculares(idCircular:Int,idUsuario:Int){
+           let fileUrl = try!
+               FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("chmd.sqlite")
+           
+           if(sqlite3_open(fileUrl.path, &db) != SQLITE_OK){
+               print("Error en la base de datos")
+           }else{
+               
+               //La base de datos abrió correctamente
+               var statement:OpaquePointer?
+               
+                //Vaciar la tabla
+               
+               self.circulares.removeAll()
+               let query = "UPDATE appCircularCHMD SET leida=0 WHERE idCircular=? AND idUsuario=?"
+               
+               if sqlite3_prepare(db,query,-1,&statement,nil) != SQLITE_OK {
+                   print("Error")
+               }
+               
+               if sqlite3_bind_int(statement,1,Int32(idCircular)) != SQLITE_OK {
+                   print("Error campo 1")
+               }
+               
+               if sqlite3_bind_int(statement,2,Int32(idUsuario)) != SQLITE_OK {
+                   print("Error campo 2")
+               }
+               
+               if sqlite3_step(statement) == SQLITE_DONE {
+                       print("Circular actualizada correctamente")
+                   }else{
+                       print("Circular no se pudo actualizar")
+                   }
+                   
+               }
+               
+       }
     
     
     @IBAction func mostrarMenu(_ sender: UIBarButtonItem) {
@@ -3952,7 +3988,13 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
                       
                       // Create OK button with action handler
                       //let ok = UIAlertAction(title: "Sí", style: .default, handler: { (action) -> Void in
+            
+                          //Servidor
                           self.noleerCircular(direccion: self.urlBase+self.noleerMetodo, usuario_id: self.idUsuario, circular_id: self.id)
+                        //Base de datos
+            self.actualizaNoLeidosCirculares(idCircular: Int(self.id)!, idUsuario: Int(self.idUsuario)!)
+            
+            
              self.showToast(message:"Marcada como no leída", font: UIFont(name:"GothamRounded-Bold",size:11.0)!)
       
                    }else{
