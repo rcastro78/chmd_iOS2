@@ -667,12 +667,12 @@ func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath])
             UserDefaults.standard.set(1, forKey: "tipoCircular")
             UserDefaults.standard.set(c.favorita, forKey: "circFav")
             self.actualizaLeidosCirculares(idCircular: c.id, idUsuario: Int(self.idUsuario)!)
-            if (c.noLeido == 1){
-                self.leerCircular(direccion: self.urlBase+self.leerMetodo, usuario_id: self.idUsuario, circular_id: "\(c.id)")
-            }
+           
+                self.leerCircularSegue(direccion: self.urlBase+self.leerMetodo, usuario_id: self.idUsuario, circular_id: "\(c.id)")
             
             
-            performSegue(withIdentifier: "TcircularSegue", sender:self)
+            
+            
             }
         }else{
          //está editando
@@ -1967,7 +1967,7 @@ func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath])
         }
     }
     
-    func leerCircular(direccion:String, usuario_id:String, circular_id:String){
+    func leerCircularSegue(direccion:String, usuario_id:String, circular_id:String){
            let parameters: Parameters = ["usuario_id": usuario_id, "circular_id": circular_id]      //This will be your parameter
            Alamofire.request(direccion, method: .post, parameters: parameters).responseJSON { response in
                switch (response.result) {
@@ -1978,12 +1978,34 @@ func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath])
                    self.circulares.removeAll()
                    self.leerCirculares()
                    
+                   self.performSegue(withIdentifier: "TcircularSegue", sender:self)
+                   
                    break
                case .failure:
                    print(Error.self)
                }
            }
        }
+    
+    func leerCircular(direccion:String, usuario_id:String, circular_id:String){
+        let parameters: Parameters = ["usuario_id": usuario_id, "circular_id": circular_id]      //This will be your parameter
+        Alamofire.request(direccion, method: .post, parameters: parameters).responseJSON { response in
+            switch (response.result) {
+            case .success:
+                print(response)
+                 UIApplication.shared.applicationIconBadgeNumber = UIApplication.shared.applicationIconBadgeNumber - 1
+                
+                self.circulares.removeAll()
+                self.leerCirculares()
+                
+               
+                
+                break
+            case .failure:
+                print(Error.self)
+            }
+        }
+    }
     
     func noleerCircular(direccion:String, usuario_id:String, circular_id:String){
            let parameters: Parameters = ["usuario_id": usuario_id, "circular_id": circular_id]      //This will be your parameter

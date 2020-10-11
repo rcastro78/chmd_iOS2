@@ -723,10 +723,10 @@ func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath])
             UserDefaults.standard.set(3, forKey: "tipoCircular")
             UserDefaults.standard.set(c.noLeido, forKey: "noLeido")
                 
-            self.leerCircular(direccion: self.urlBase+self.leerMetodo, usuario_id: self.idUsuario, circular_id: "\(c.id)")
+            self.leerCircularSegue(direccion: self.urlBase+self.leerMetodo, usuario_id: self.idUsuario, circular_id: "\(c.id)")
                 
                 
-            performSegue(withIdentifier: "CircularNoLeidaSegue", sender:self)
+            //performSegue(withIdentifier: "CircularNoLeidaSegue", sender:self)
             }
         }else{
                       let cell = tableView.cellForRow(at: indexPath) as! CircularTableViewCell
@@ -1412,6 +1412,24 @@ func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath])
             case .success:
                 print(response)
                  UIApplication.shared.applicationIconBadgeNumber = UIApplication.shared.applicationIconBadgeNumber - 1
+                
+                break
+            case .failure:
+                print(Error.self)
+            }
+        }
+    }
+    
+    func leerCircularSegue(direccion:String, usuario_id:String, circular_id:String){
+        let parameters: Parameters = ["usuario_id": usuario_id, "circular_id": circular_id]      //This will be your parameter
+        Alamofire.request(direccion, method: .post, parameters: parameters).responseJSON { response in
+            switch (response.result) {
+            case .success:
+                print(response)
+                 UIApplication.shared.applicationIconBadgeNumber = UIApplication.shared.applicationIconBadgeNumber - 1
+                //self.performSegue(withIdentifier: "CircularNoLeidaSegue", sender:self)
+                self.performSegue(withIdentifier: "CircularNoLeidaSegue", sender:self)
+                
                 break
             case .failure:
                 print(Error.self)

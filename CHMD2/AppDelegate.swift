@@ -14,6 +14,7 @@ import BitlySDK
 import FirebaseInstanceID
 import FirebaseMessaging
 import SQLite3
+import Alamofire
 
 extension Data {
     var hexString: String {
@@ -28,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate,GIDSignI
     var window: UIWindow?
     var metodo_circular:String="getCircularId.php"
     var db: OpaquePointer?
+    var leerMetodo:String="leerCircular.php"
+    var urlBase:String="https://www.chmd.edu.mx/WebAdminCirculares/ws/"
     
     func registerForPushNotifications() {
       UNUserNotificationCenter.current() // 1
@@ -228,6 +231,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate,GIDSignI
         //Establecer el badge aunque la app esté abierta
         UIApplication.shared.applicationIconBadgeNumber = (b ?? 1)
         
+       
+        
+        
            print(userInfo)
         completionHandler([.alert,.sound])
        }
@@ -239,6 +245,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate,GIDSignI
             let userInfo = request.content.userInfo
             //Con esto capturamos los valores enviados en la notificacion
             let idCircular = userInfo["idCircular"] as! String
+            let idUsuario = UserDefaults.standard.string(forKey: "idUsuario") ?? "0"
+            //Cambiarlo aqui
+              self.leerCircular(direccion: self.urlBase+self.leerMetodo, usuario_id: idUsuario, circular_id: "\(idCircular)")
+        
         
         let aps = userInfo[AnyHashable("aps")] as? NSDictionary
                let alert = aps?["alert"] as? NSDictionary
@@ -276,6 +286,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate,GIDSignI
         
             completionHandler()
     }
+    
+    
+    
+    func leerCircular(direccion:String, usuario_id:String, circular_id:String){
+           let parameters: Parameters = ["usuario_id": usuario_id, "circular_id": circular_id]      //This will be your parameter
+           Alamofire.request(direccion, method: .post, parameters: parameters).responseJSON { response in
+               switch (response.result) {
+               case .success:
+                   print(response)
+                   UIApplication.shared.applicationIconBadgeNumber = UIApplication.shared.applicationIconBadgeNumber - 1
+                   break
+               case .failure:
+                   print(Error.self)
+               }
+           }
+       }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return GIDSignIn.sharedInstance().handle(url as URL?,

@@ -302,6 +302,8 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
              let idCircularViaNotif = UserDefaults.standard.integer(forKey: "idCircularViaNotif")
              self.leerCircular(direccion: self.urlBase+self.leerMetodo, usuario_id: self.idUsuario, circular_id: "\(idCircularViaNotif)")
             
+             self.leeCirc(idCircular:Int(idCircularViaNotif) ?? 0,idUsuario:Int(self.idUsuario) ?? 0)
+            
         }else{
             self.btnAnterior.isEnabled=true
             self.btnSiguiente.isEnabled=true
@@ -375,7 +377,7 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
                 webView.isHidden=true
                 webViewSinConexion.isHidden=false
                leerCircular(idCircular: idInicial)
-               
+                self.leeCirc(idCircular:Int(self.id) ?? 0,idUsuario:Int(self.idUsuario) ?? 0)
             }
           
             

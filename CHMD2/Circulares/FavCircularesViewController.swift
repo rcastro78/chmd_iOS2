@@ -616,10 +616,12 @@ func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath])
             UserDefaults.standard.set(c.noLeido, forKey: "noLeido")
                 if (c.noLeido == 1){
                     self.leerCircular(direccion: self.urlBase+self.leerMetodo, usuario_id: self.idUsuario, circular_id: "\(c.id)")
+                }else{
+                    performSegue(withIdentifier: "circularFavoritaSegue", sender:self)
                 }
                 
                 
-            performSegue(withIdentifier: "circularFavoritaSegue", sender:self)
+            
             }
          }else{
             let c = circulares[indexPath.row]
@@ -1367,6 +1369,22 @@ func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath])
         }
     }
     
+    func leerCircularSegue(direccion:String, usuario_id:String, circular_id:String){
+           let parameters: Parameters = ["usuario_id": usuario_id, "circular_id": circular_id]      //This will be your parameter
+           Alamofire.request(direccion, method: .post, parameters: parameters).responseJSON { response in
+               switch (response.result) {
+               case .success:
+                    UIApplication.shared.applicationIconBadgeNumber = UIApplication.shared.applicationIconBadgeNumber - 1
+                    self.performSegue(withIdentifier: "circularFavoritaSegue", sender:self)
+                   print(response)
+                   break
+               case .failure:
+                   print(Error.self)
+               }
+           }
+       }
+    
+   
     
     func delCircularTodas(direccion:String, usuario_id:String, circular_id:String){
         let parameters: Parameters = ["usuario_id": usuario_id, "circular_id": circular_id]      //This will be your parameter
