@@ -13,6 +13,7 @@ class MenuCircularTableViewCell: UITableViewCell {
     @IBOutlet weak var imgMenu: UIImageView!
     @IBOutlet weak var lblMenu: UILabel!
     
+    @IBOutlet weak var lblTotales: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

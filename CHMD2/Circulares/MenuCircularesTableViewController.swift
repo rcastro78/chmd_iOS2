@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SQLite3
 class MenuCircularesTableViewController: UITableViewController {
 
     @IBOutlet weak var lblCorreo: UILabel!
@@ -16,11 +17,27 @@ class MenuCircularesTableViewController: UITableViewController {
     var urlFotos:String = "http://chmd.chmd.edu.mx:65083/CREDENCIALES/padres/"
     var urlBase:String="https://www.chmd.edu.mx/WebAdminCirculares/ws/"
     var cifrarMetodo:String="cifrar.php"
+    var metodoTotalNoLeidas = "getTotalCircularesNoLeidas.php"
+     var metodoTotalFavoritas = "getTotalCircularesFavoritas.php"
     var idUsuario:String=""
-    
+    var totalItems=0
+     var db: OpaquePointer?
     @IBOutlet weak var imgFotoPerfil: UIImageView!
     @IBOutlet var tableViewMenu: UITableView!
      var menu = [MenuCirculares]()
+    var totalNoLeidas:Int=0
+    var totalFavoritas:Int=0
+    var totalNotificaciones:Int=0
+    override func viewWillAppear(_ animated: Bool){
+        
+        self.totalNoLeidas = getTotalNoLeidas()
+        self.totalFavoritas = getTotalFavoritas()
+        self.totalNotificaciones = getTotalNotificaciones()
+        self.tableViewMenu.reloadData()
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,7 +64,9 @@ class MenuCircularesTableViewController: UITableViewController {
             let address=self.urlBase+self.cifrarMetodo+"?idUsuario=\(self.idUsuario)"
             guard let _url = URL(string: address) else { return };
             let imageURL = URL(string: fotoUrl.replacingOccurrences(of: " ", with: "%20"))!
-          
+            
+            
+            
             Alamofire.request(imageURL).responseJSON {
               response in
 
@@ -126,15 +145,132 @@ class MenuCircularesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
            let cell = tableView.dequeueReusableCell(withIdentifier: "celda", for: indexPath)
            as! MenuCircularTableViewCell
+        
+ 
            let m = menu[indexPath.row]
            cell.lblMenu.text?=m.nombre
-            cell.imgMenu.image=m.imagen
+           cell.imgMenu.image=m.imagen
+        
+           cell.lblTotales.layer.cornerRadius=8.0
+        
+       if(indexPath.row==0 || indexPath.row==3 || indexPath.row==5){
+        cell.lblTotales.isHidden=true
+        }
+        
+        if(indexPath.row==1){
+            if(totalFavoritas>0){
+            cell.lblTotales.text="\(totalFavoritas)"
+            }else{
+              cell.lblTotales.isHidden=true
+            }
+        }
+           
+        if(indexPath.row==2){
+            if(totalNoLeidas>0){
+               cell.lblTotales.text="\(totalNoLeidas)"
+            }else{
+               cell.lblTotales.isHidden=true
+            }
+            
+        }
+        
+        
+        if(indexPath.row==4){
+            if(totalNotificaciones>0){
+            cell.lblTotales.text="\(totalNotificaciones)"
+            }else{
+              cell.lblTotales.isHidden=true
+            }
+        }
+           
+            
         
         return cell
     }
     
     
+    func getTotalFavoritas()->Int{
+      print("Leer desde la base de datos local")
+      let fileUrl = try!
+                 FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("chmd.sqlite")
+      
+      if sqlite3_open(fileUrl.path, &db) != SQLITE_OK {
+          print("error opening database")
+      }
     
+         let consulta = "SELECT COUNT(*) FROM appCircularCHMD WHERE favorita=1"
+     var queryStatement: OpaquePointer? = nil
+         
+          if sqlite3_prepare_v2(db, consulta, -1, &queryStatement, nil) == SQLITE_OK {
+                while(sqlite3_step(queryStatement) == SQLITE_ROW) {
+                       let id = sqlite3_column_int(queryStatement, 0)
+                    totalItems=Int(id)
+               }
+            }
+            else {
+               print("SELECT statement could not be prepared")
+             }
+
+             sqlite3_finalize(queryStatement)
+        
+        return totalItems
+     }
+    
+    
+    func getTotalNotificaciones()->Int{
+      print("Leer desde la base de datos local")
+      let fileUrl = try!
+                 FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("chmd.sqlite")
+      
+      if sqlite3_open(fileUrl.path, &db) != SQLITE_OK {
+          print("error opening database")
+      }
+    
+         let consulta = "SELECT COUNT(*) FROM appNotificacionCHMD WHERE leida=0"
+     var queryStatement: OpaquePointer? = nil
+         
+          if sqlite3_prepare_v2(db, consulta, -1, &queryStatement, nil) == SQLITE_OK {
+                while(sqlite3_step(queryStatement) == SQLITE_ROW) {
+                       let id = sqlite3_column_int(queryStatement, 0)
+                    totalItems=Int(id)
+               }
+            }
+            else {
+               print("SELECT statement could not be prepared")
+             }
+
+             sqlite3_finalize(queryStatement)
+        
+        return totalItems
+     }
+    
+    
+    func getTotalNoLeidas()->Int{
+         print("Leer desde la base de datos local")
+         let fileUrl = try!
+                    FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("chmd.sqlite")
+         
+         if sqlite3_open(fileUrl.path, &db) != SQLITE_OK {
+             print("error opening database")
+         }
+       
+            let consulta = "SELECT COUNT(*) FROM appCircularCHMD WHERE leida=0"
+        var queryStatement: OpaquePointer? = nil
+            
+             if sqlite3_prepare_v2(db, consulta, -1, &queryStatement, nil) == SQLITE_OK {
+                   while(sqlite3_step(queryStatement) == SQLITE_ROW) {
+                          let id = sqlite3_column_int(queryStatement, 0)
+                       totalItems=Int(id)
+                  }
+               }
+               else {
+                  print("SELECT statement could not be prepared")
+                }
+
+                sqlite3_finalize(queryStatement)
+           
+           return totalItems
+        }
     
     
     
@@ -198,5 +334,9 @@ class MenuCircularesTableViewController: UITableViewController {
        }
     
      
+    
+    
+    
+    
     
 }

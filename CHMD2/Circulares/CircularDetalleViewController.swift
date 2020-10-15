@@ -217,8 +217,8 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
     
     @IBOutlet weak var btnRecargar: UIBarButtonItem!
     @IBOutlet weak var lblFechaCircular: UILabel!
-    //@IBOutlet weak var lblTituloParte1: UILabel!
-    //@IBOutlet weak var lblTituloParte2: UILabel!
+    @IBOutlet weak var lblTituloParte1: UILabel!
+    @IBOutlet weak var lblTituloParte2: UILabel!
     @IBOutlet weak var lblTituloNivel: UILabel!
     @IBOutlet weak var imbCalendario: UIButton!
       
@@ -250,7 +250,7 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
     var urlBase:String="https://www.chmd.edu.mx/WebAdminCirculares/ws/"
     var circularUrl:String=""
     var circularTitulo:String=""
-    var metodo_circular="getCircularId4.php"
+    var metodo_circular="getCircularId5.php"
     var contenido:String=""
     let eventStore = EKEventStore()
     var circulares = [CircularTodas]()
@@ -381,13 +381,13 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
             }
           
             
-            //partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:titulo)
+            partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:titulo)
             
         }else{
           
             id = UserDefaults.standard.string(forKey: "idCircularViaNotif") ?? ""
             idInicial = Int(UserDefaults.standard.string(forKey: "idCircularViaNotif") ?? "0")!
-            obtenerCircular(uri: urlBase+"getCircularId4.php?id="+id)
+            obtenerCircular(uri: urlBase+"getCircularId5.php?id="+id)
         }
         
         
@@ -395,7 +395,7 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
          
           webView.isHidden=false
           webViewSinConexion.isHidden=true
-            let link = URL(string:urlBase+"getCircularId4.php?id=\(id)")!
+            let link = URL(string:urlBase+"getCircularId5.php?id=\(id)")!
                   let request = URLRequest(url: link)
                   webView.contentMode = .scaleAspectFit
                   webView.load(request)
@@ -663,8 +663,8 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
         if(ConexionRed.isConnectedToNetwork()){
                 self.btnRecargar.isEnabled=false
                 self.btnRecargar.tintColor = UIColor.clear
-                let link = URL(string:urlBase+"getCircularId4.php?id=\(globalId)")!
-                circularUrl = urlBase+"getCircularId4.php?id=\(globalId)"
+                let link = URL(string:urlBase+"getCircularId5.php?id=\(globalId)")!
+                circularUrl = urlBase+"getCircularId5.php?id=\(globalId)"
                 let request = URLRequest(url: link)
                 webView.load(request)
         }else{
@@ -823,12 +823,12 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
                     btnCalendario.isHidden=true
                 }
         
-               // self.partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:nextTitulo)
+                self.partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:nextTitulo)
                 
                 circularTitulo = nextTitulo
-                let link = URL(string:urlBase+"getCircularId4.php?id=\(nextId)")!
+                let link = URL(string:urlBase+"getCircularId5.php?id=\(nextId)")!
                 let request = URLRequest(url: link)
-                circularUrl = urlBase+"getCircularId4.php?id=\(nextId)"
+                circularUrl = urlBase+"getCircularId5.php?id=\(nextId)"
                 webView.load(request)
                 self.title = "Circular"
                
@@ -873,8 +873,8 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
                 let date1 = dateFormatter.date(from: "\(dia)/\(mes)/\(anio)")
                 dateFormatter.dateFormat = "d 'de' MMMM 'de' YYYY"
                 let d = dateFormatter.string(from: date1!)
-                //self.lblTituloParte1.text=circulares[p].nombre
-                //self.partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:circulares[p].nombre)
+                self.lblTituloParte1.text=circulares[p].nombre
+                self.partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:circulares[p].nombre)
                          webView.isHidden=true
                          webViewSinConexion.isHidden=false
                          
@@ -1023,9 +1023,9 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
             globalId=nextId
             var nextTitulo = titulos[p]
             var nextFecha = fechas[p]
-            //self.lblTituloParte1.text=nextTitulo
+            self.lblTituloParte1.text=nextTitulo
             
-            //self.partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:nextTitulo)
+            self.partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:nextTitulo)
             var nextHoraIniIcs = horasInicioIcs[p]
             var nextHoraFinIcs = horasFinIcs[p]
             var nextFechaIcs = fechasIcs[p]
@@ -1043,9 +1043,9 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
            
             
             circularTitulo = nextTitulo
-            let link = URL(string:urlBase+"getCircularId4.php?id=\(nextId)")!
+            let link = URL(string:urlBase+"getCircularId5.php?id=\(nextId)")!
             let request = URLRequest(url: link)
-            circularUrl = urlBase+"getCircularId4.php?id=\(nextId)"
+            circularUrl = urlBase+"getCircularId5.php?id=\(nextId)"
             webView.load(request)
             self.title = "Circular"
             //nextTitulo.uppercased()
@@ -1072,9 +1072,9 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
             if(p>=circulares.count){
                 p = 0
             }
-            //lblTituloParte1.text = circulares[posicion].nombre
+            lblTituloParte1.text = circulares[posicion].nombre
             //lblNivel.text = circulares[posicion].nivel
-            //self.partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:circulares[p].nombre)
+            self.partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:circulares[p].nombre)
            
             let f = self.getFavorita(idCircular:Int(circulares[p].id) ?? 0)
             if(f==1){
@@ -1263,8 +1263,8 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
                        var nextHoraFinIcs = horasFinIcs[p]
                        var nextFechaIcs = fechasIcs[p]
                        var nextNivel = niveles[p]
-                    //self.lblTituloParte1.text=nextTitulo
-                    //self.partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:nextTitulo)
+                    self.lblTituloParte1.text=nextTitulo
+                    self.partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:nextTitulo)
                        nextHoraIcs = horasInicioIcs[p]
                        if(nextHoraIniIcs != "00:00:00"){
                            imbCalendario.isHidden=false
@@ -1278,8 +1278,8 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
                        
                        
                         circularTitulo = nextTitulo
-                       let link = URL(string:urlBase+"getCircularId4.php?id=\(nextId)")!
-                       circularUrl = urlBase+"getCircularId4.php?id=\(nextId)"
+                       let link = URL(string:urlBase+"getCircularId5.php?id=\(nextId)")!
+                       circularUrl = urlBase+"getCircularId5.php?id=\(nextId)"
                        let request = URLRequest(url: link)
                        webView.load(request)
                        self.title = "Circular"
@@ -1470,11 +1470,11 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
                 
                 //lblNivel.text = nextNivel
                 
-                //self.partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:nextTitulo)
+                self.partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:nextTitulo)
                 
                  circularTitulo = nextTitulo
-                let link = URL(string:urlBase+"getCircularId4.php?id=\(nextId)")!
-                circularUrl = urlBase+"getCircularId4.php?id=\(nextId)"
+                let link = URL(string:urlBase+"getCircularId5.php?id=\(nextId)")!
+                circularUrl = urlBase+"getCircularId5.php?id=\(nextId)"
                 let request = URLRequest(url: link)
                 webView.load(request)
                 self.title = "Circular"
@@ -1500,7 +1500,7 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
         }else{
             p = p-1
             if(p>0){
-                //self.partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:circulares[p].nombre)
+                self.partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:circulares[p].nombre)
                                //lblNivel.text = circulares[p].nivel
             webView.isHidden=true
             webViewSinConexion.isHidden=false
@@ -1843,7 +1843,7 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
     @IBAction func btnCompartirClick(_ sender: UIButton) {
         //var link:String=""
         //Crear el link mediante bit.ly, para pruebas
-        circularUrl = "https://www.chmd.edu.mx/WebAdminCirculares/ws/getCircularId4?id=\(id)"
+        circularUrl = "https://www.chmd.edu.mx/WebAdminCirculares/ws/getCircularId5?id=\(id)"
         compartir(message:"Compartir",link:circularUrl)
         /*Bitly.shorten(circularUrl) { response, error in
             var link = response?.bitlink ?? ""
@@ -1968,9 +1968,9 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
                            //self.lblNivel.text = nextNivel
                           
                           self.circularTitulo = nextTitulo
-                          let link = URL(string:self.urlBase+"getCircularId4.php?id=\(nextId)")!
+                          let link = URL(string:self.urlBase+"getCircularId5.php?id=\(nextId)")!
                           let request = URLRequest(url: link)
-                          self.circularUrl = self.urlBase+"getCircularId4.php?id=\(nextId)"
+                          self.circularUrl = self.urlBase+"getCircularId5.php?id=\(nextId)"
                           self.webView.load(request)
                           self.title = "Circular"
                           //nextTitulo.uppercased()
@@ -2053,9 +2053,9 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
                      //self.lblNivel.text = nextNivel
                     
                     self.circularTitulo = nextTitulo
-                    let link = URL(string:self.urlBase+"getCircularId4.php?id=\(nextId)")!
+                    let link = URL(string:self.urlBase+"getCircularId5.php?id=\(nextId)")!
                     let request = URLRequest(url: link)
-                    self.circularUrl = self.urlBase+"getCircularId4.php?id=\(nextId)"
+                    self.circularUrl = self.urlBase+"getCircularId5.php?id=\(nextId)"
                     self.webView.load(request)
                     self.title = "Circular"
                     //nextTitulo.uppercased()
@@ -2891,11 +2891,7 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
      if sqlite3_open(fileUrl.path, &db) != SQLITE_OK {
          print("error opening database")
      }
-     
-     /*
-      idCircular,idUsuario,nombre,textoCircular,no_leida,leida,favorita,eliminada,created_at,fechaIcs,horaInicioIcs,horaFinIcs,nivel,adjunto
-      */
-     
+   
         let consulta = "SELECT idCircular,nombre,textoCircular,leida,favorita,eliminada,created_at,fechaIcs,horaInicioIcs,horaFinIcs,nivel,adjunto  FROM appCircularCHMD WHERE favorita=1"
     var queryStatement: OpaquePointer? = nil
          var imagen:UIImage
@@ -3701,8 +3697,8 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
                     self.lblFechaCircular.text = "\(dia)/\(mes)/\(anio)"
                     self.title = "Detalles de la circular"*/
                     //self.titulos[0].uppercased()
-                //self.lblTituloParte1.text=self.titulos[0].capitalized
-                   // self.partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:self.titulos[0])
+                self.lblTituloParte1.text=self.titulos[0].capitalized
+                    self.partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:self.titulos[0])
               
           
       }
@@ -4051,9 +4047,9 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
                         //self.lblNivel.text = nextNivel
                        
                        self.circularTitulo = nextTitulo
-                       let link = URL(string:self.urlBase+"getCircularId4.php?id=\(nextId)")!
+                       let link = URL(string:self.urlBase+"getCircularId5.php?id=\(nextId)")!
                        let request = URLRequest(url: link)
-                       self.circularUrl = self.urlBase+"getCircularId4.php?id=\(nextId)"
+                       self.circularUrl = self.urlBase+"getCircularId5.php?id=\(nextId)"
                        self.webView.load(request)
                        self.title = "Circular"
 
@@ -4100,7 +4096,7 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
         
         let actionCompartir = UIAlertAction(title: tituloCompartir, style: .default) { (action:UIAlertAction) in
             
-            let circularUrl = "https://www.chmd.edu.mx/WebAdminCirculares/ws/getCircularId4.php?id=\(self.id)"
+            let circularUrl = "https://www.chmd.edu.mx/WebAdminCirculares/ws/getCircularId5.php?id=\(self.id)"
             guard let link = URL(string: circularUrl) else { return }
             let dynamicLinksDomainURIPrefix = "https://chmd1.page.link"
             let linkBuilder = DynamicLinkComponents(link: link, domainURIPrefix: dynamicLinksDomainURIPrefix)
