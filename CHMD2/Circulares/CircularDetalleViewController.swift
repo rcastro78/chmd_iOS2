@@ -15,6 +15,10 @@ import BitlySDK
 import MarqueeLabel
 import SQLite3
 
+
+
+
+
 private let characterEntities : [ Substring : Character ] = [
     // XML predefined entities:
     "&quot;"    : "\"",
@@ -260,7 +264,8 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
     var noLeido:Int=0
     var globalId:String=""
     var circFav:Int=0
-    
+
+   
     @objc func done() { // remove @objc for Swift 3
         
         
@@ -286,7 +291,6 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
         self.view.addSubview(navBar)
         stackView.isHidden=true
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -324,6 +328,7 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
         webView.scrollView.showsHorizontalScrollIndicator = false
         webView.scrollView.pinchGestureRecognizer?.isEnabled = false
         webView.configuration.preferences.javaScriptEnabled = true
+        self.webView.scrollView.isScrollEnabled = false
         webView.navigationDelegate = self
         tipoCircular = UserDefaults.standard.integer(forKey: "tipoCircular")
 
@@ -353,6 +358,11 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
          }
         
         if (viaNotif == 0){
+            let webViewHeight = self.webView.scrollView.bounds.height
+            let webViewWidth = self.webView.scrollView.bounds.width
+            
+     
+            
             let titulo = UserDefaults.standard.string(forKey: "nombre") ?? ""
             circularTitulo = titulo
             let fecha = UserDefaults.standard.string(forKey: "fecha") ?? ""
@@ -376,6 +386,8 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
             if(!ConexionRed.isConnectedToNetwork()){
                 webView.isHidden=true
                 webViewSinConexion.isHidden=false
+                lblTituloParte1.isHidden=true
+                lblTituloParte2.isHidden=true
                leerCircular(idCircular: idInicial)
                 self.leeCirc(idCircular:Int(self.id) ?? 0,idUsuario:Int(self.idUsuario) ?? 0)
             }
@@ -384,7 +396,7 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
             partirTitulo(label1:self.lblTituloParte1,label2:self.lblTituloParte2,titulo:titulo)
             
         }else{
-          
+            
             id = UserDefaults.standard.string(forKey: "idCircularViaNotif") ?? ""
             idInicial = Int(UserDefaults.standard.string(forKey: "idCircularViaNotif") ?? "0")!
             obtenerCircular(uri: urlBase+"getCircularId5.php?id="+id)
@@ -4200,6 +4212,8 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
     
     
 }
+
+
 
     
 
