@@ -190,6 +190,8 @@ func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath])
           self.leerCirculares()
         
       }
+         refreshControl.endRefreshing()
+        
     }
     
     

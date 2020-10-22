@@ -197,6 +197,7 @@ func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath])
           self.getDataFromURL(url: _url)
         self.leerCirculares()
       }
+         refreshControl.endRefreshing()
     }
 
    

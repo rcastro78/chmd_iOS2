@@ -128,6 +128,7 @@ class NotificacionTableViewController: UIViewController,UITableViewDelegate, UIT
         //Actualizar las notificaciones
        
        }
+         refreshControl.endRefreshing()
     }
     
 
