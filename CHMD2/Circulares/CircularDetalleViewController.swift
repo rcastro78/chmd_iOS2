@@ -223,6 +223,7 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
     @IBOutlet weak var lblFechaCircular: UILabel!
     //@IBOutlet weak var lblTituloParte1: UILabel!
     //@IBOutlet weak var lblTituloParte2: UILabel!
+    //3220289038
     @IBOutlet weak var lblTituloNivel: UILabel!
     @IBOutlet weak var imbCalendario: UIButton!
       
