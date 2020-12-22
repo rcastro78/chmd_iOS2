@@ -30,6 +30,10 @@ func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath])
     @IBOutlet weak var btnMarcarEliminadas: UIButton!
     @IBOutlet weak var btnMarcarLeidas: UIButton!
     
+    @IBOutlet weak var imgNoLeidas: UIImageView!
+    @IBOutlet weak var imgLeidas: UIImageView!
+    @IBOutlet weak var imgEliminadas: UIImageView!
+    @IBOutlet weak var imgFavoritas: UIImageView!
     @IBOutlet weak var lblNoLeidas: UILabel!
     @IBOutlet weak var lblLeidas: UILabel!
     @IBOutlet weak var lblEliminar: UILabel!
@@ -118,6 +122,10 @@ func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath])
         lblLeidas.isHidden=true
         lblEliminar.isHidden=true
         
+        imgFavoritas.isHidden=true
+        imgNoLeidas.isHidden=true
+        imgLeidas.isHidden=true
+        imgEliminadas.isHidden=true
         
         btnMarcarFavoritas.addTarget(self,action: #selector(agregarFavoritos), for: .touchUpInside)
         btnMarcarNoLeidas.addTarget(self,action: #selector(noleer), for: .touchUpInside)
@@ -1780,7 +1788,10 @@ func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath])
                 btnMarcarNoLeidas.isHidden=false
                 btnMarcarLeidas.isHidden=false
                 btnMarcarEliminadas.isHidden=false
-                
+                imgNoLeidas.isHidden=false
+                imgLeidas.isHidden=false
+                imgFavoritas.isHidden=false
+                imgEliminadas.isHidden=false
                 lblFavoritas.isHidden=false
                 lblNoLeidas.isHidden=false
                 lblLeidas.isHidden=false
@@ -1823,7 +1834,10 @@ func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath])
                     btnMarcarNoLeidas.isHidden=true
                     btnMarcarLeidas.isHidden=true
                     btnMarcarEliminadas.isHidden=true
-                    
+                    imgNoLeidas.isHidden=true
+                                   imgLeidas.isHidden=true
+                                   imgFavoritas.isHidden=true
+                                   imgEliminadas.isHidden=true
                     lblFavoritas.isHidden=true
                                   lblNoLeidas.isHidden=true
                                   lblLeidas.isHidden=true
@@ -2147,7 +2161,10 @@ func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath])
             btnMarcarLeidas.isHidden=true
             btnMarcarNoLeidas.isHidden=true
             btnMarcarEliminadas.isHidden=true
-            
+            imgNoLeidas.isHidden=true
+            imgLeidas.isHidden=true
+            imgFavoritas.isHidden=true
+            imgEliminadas.isHidden=true
             lblFavoritas.isHidden=true
                           lblNoLeidas.isHidden=true
                           lblLeidas.isHidden=true

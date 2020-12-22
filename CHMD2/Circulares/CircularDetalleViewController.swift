@@ -1706,6 +1706,8 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
            
             if sqlite3_step(statement) == SQLITE_DONE {
                     print("Circular actualizada correctamente")
+                
+                
                 }else{
                     print("Circular no se pudo eliminar")
                 }
@@ -1857,7 +1859,7 @@ class CircularDetalleViewController: UIViewController,WKNavigationDelegate {
         //var link:String=""
         //Crear el link mediante bit.ly, para pruebas
         circularUrl = "https://www.chmd.edu.mx/WebAdminCirculares/ws/getCircularId5?id=\(id)"
-        compartir(message:"Compartir",link:circularUrl)
+        compartir(message:circularTitulo,link:circularUrl)
         /*Bitly.shorten(circularUrl) { response, error in
             var link = response?.bitlink ?? ""
             self.compartir(message:"Compartir",link:link)
